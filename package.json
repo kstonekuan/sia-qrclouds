@@ -11,7 +11,8 @@
     "core-js": "^3.1.4",
     "react": "16.8.3",
     "react-native": "0.59.9",
-    "react-native-camera": "^2.11.0"
+    "react-native-camera": "^2.11.0",
+    "react-native-router-flux": "^4.0.6"
   },
   "devDependencies": {
     "@babel/core": "7.4.5",
