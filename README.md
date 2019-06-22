@@ -2,6 +2,8 @@
 
 SIA App Challenge 2019 -**Due 23 Aug**
 
+https://appchallenge.singaporeair.com/en/challenges/appchallenge-2019?lang=en
+
 ## Challenge Statement KrisShop
 
 The idea is to transform the QR codes around Changi Airport into hidden claimable rewards for the KrisShop. The main starting point for this would be in the check-in counter queue (public spaces) where any ticket you have you can scan to get a discount. 
