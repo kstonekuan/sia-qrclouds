@@ -16,17 +16,12 @@ import ViewTask from './pages/ViewTask';
 import CompletedViewChat from './pages/CompletedViewChat';
 import Notification from './pages/Notifications';
 import PhoneVerification from './pages/PhoneVerification';
-import Wallet from './pages/Wallet';
 import Landing from './pages/Landing';
-import ImageViewer from './pages/ImageViewer';
-import TransactionHistory from './pages/TransactionHistory';
-import Settings from './pages/Settings';
 import EditAccount from './pages/EditAccount';
 import paymentProcessing from './pages/paymentProcessing';
 import EditTask from './pages/EditTask';
 import RepostTask from './pages/RepostTask';
 import Authentication from './pages/Authentication';
-import ListingPage from './pages/listingPage';
 import ListingForm from './pages/ListingForm';
 import FullListView from './pages/FullListView';
 import LogOut from './pages/LogOut';
@@ -36,14 +31,9 @@ import ViewGame from './pages/ViewGame';
 // import NavigationPage from './pages/NavigationPage';
 
 // Components
-import OverlayMenu from './components/OverlayMenu';
 import ConfirmLogout from './components/modals/ConfirmLogout';
 import TaskAlertPanel from './components/TaskAlertPanel';
 import TabBar from './components/TabBar';
-
-import OneMapSandbox from './OneMapSandbox';
-import Styles from './Styles';
-import DOTest from './OCBC_DBS_test';
 
 
 class RouterComponent extends Component {
