@@ -36,55 +36,82 @@ class ViewReward extends Component {
 
   getRewardData(rewardID) {
     const { userID } = this.state;
-    this.rewardSnapshot = rewardsDB.doc(rewardID).onSnapshot((reward) => {
-      const state = reward.data();
 
-      rewardsDB.doc(rewardID).collection('redemptions').doc(userID).get()
-        .then((doc) => {
-          if (doc.exists) {
-            const dateClaimedArr = doc.data().dateClaimed;
-            const lastEntry = dateClaimedArr.length - 1;
-            const dateLast = dateClaimedArr[lastEntry];
-            switch (state.rewardType) {
-              case 'daily':
-                if (isClaimedToday(dateLast)) {
-                  state.redeemed = true;
-                  state.dateLastClaimed = dateLast;
-                } else {
-                  state.dateClaimedArr = dateClaimedArr;
-                  state.locationArr = doc.data().location;
-                }
-                break;
-
-              case 'weekly':
-                if (isClaimedThisWeek(dateLast, state.resetDayOfTheWeek)) {
-                  state.redeemed = true;
-                  state.dateLastClaimed = dateLast;
-                } else {
-                  state.dateClaimedArr = dateClaimedArr;
-                  state.locationArr = doc.data().location;
-                }
-                break;
-
-              default: // for one time rewards
-                state.redeemed = true;
-                state.dateLastClaimed = dateLast;
-            }
-            this.setState(state);
+    if (!rewardID) {
+      alert('Reward no longer available');
+      Actions.main();
+    } else {
+      this.rewardSnapshot = rewardsDB.doc(rewardID).onSnapshot((reward) => {
+        const rewardData = reward.data();
+        const stateUpdate = rewardData;
+        stateUpdate.markers = [
+          {
+            startLatLng: {
+              latitude: rewardData.coordinates.latitude,
+              longitude: rewardData.coordinates.longitude
+            },
+            type: 'start',
+            category: 'reward'
+          },
+          {
+            endLatLng: {
+              latitude: rewardData.endCoordinates ? rewardData.endCoordinates.latitude : 0,
+              longitude: rewardData.endCoordinates ? rewardData.endCoordinates.longitude : 0
+            },
+            type: 'end',
+            category: 'reward'
           }
-        })
-        .catch((err) => {
-          console.log('Error getting document', err);
-        });
-    });
+        ];
+        console.log(stateUpdate);
+
+        rewardsDB.doc(rewardID).collection('redemptions').doc(userID).get()
+          .then((doc) => {
+            if (doc.exists) {
+              const dateClaimedArr = doc.data().dateClaimed;
+              const lastEntry = dateClaimedArr.length - 1;
+              const dateLast = dateClaimedArr[lastEntry];
+              switch (stateUpdate.rewardType) {
+                case 'daily':
+                  if (isClaimedToday(dateLast)) {
+                    stateUpdate.redeemed = true;
+                    stateUpdate.dateLastClaimed = dateLast;
+                  } else {
+                    stateUpdate.dateClaimedArr = dateClaimedArr;
+                    stateUpdate.locationArr = doc.data().location;
+                  }
+                  break;
+
+                case 'weekly':
+                  if (isClaimedThisWeek(dateLast, stateUpdate.resetDayOfTheWeek)) {
+                    stateUpdate.redeemed = true;
+                    stateUpdate.dateLastClaimed = dateLast;
+                  } else {
+                    stateUpdate.dateClaimedArr = dateClaimedArr;
+                    stateUpdate.locationArr = doc.data().location;
+                  }
+                  break;
+
+                default: // for one time rewards
+                  stateUpdate.redeemed = true;
+                  stateUpdate.dateLastClaimed = dateLast;
+              }
+            }
+            console.log(stateUpdate);
+            this.setState(stateUpdate);
+          })
+          .catch((err) => {
+            console.log('Error getting document', err);
+          });
+      });
+    }
   }
 
   render() {
-    const { resetDayOfTheWeek, rewardType, expiryDate, locationName, merchantName, promoName, rDescription, attachments, redeemed, dateClaimedArr, dateLastClaimed, locationArr, scraped } = this.state;
+    const { redemptionCount, resetDayOfTheWeek, rewardType, expiryDate, locationName, merchantName, promoName, rDescription, attachments, redeemed, dateClaimedArr, dateLastClaimed, locationArr, scraped, markers } = this.state;
     const { rewardID } = this.props;
-
     return (
       <RewardInfo
+        redemptionCount={redemptionCount}
         resetDayOfTheWeek={resetDayOfTheWeek}
         rewardType={rewardType}
         expiryDate={expiryDate}
@@ -99,6 +126,7 @@ class ViewReward extends Component {
         rewardID={rewardID}
         locationArr={locationArr}
         scraped={scraped}
+        markers={markers}
       />
     );
   }

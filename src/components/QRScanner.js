@@ -1,18 +1,19 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-no-bind */
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Linking, Alert } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'react-native-firebase';
 import { Spinner } from './common';
-import { usersDB, rewardsDB } from '../Constants';
+import { mainBaseColor } from '../Constants';
+import { TextStyle, Absolute } from '../StyleSheet';
 
 const PendingView = () => (
   <View
     style={{
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: mainBaseColor,
       justifyContent: 'center',
       alignItems: 'center',
     }}
@@ -26,63 +27,72 @@ class QRScanner extends Component {
     super(props);
     this.camera = null;
 
-    const { currentUser } = firebase.auth();
-    if (currentUser) {
-      this.state = {
-        userID: currentUser.uid,
-        camera: {
-          type: RNCamera.Constants.Type.back,
-          flashMode: RNCamera.Constants.FlashMode.auto,
-        },
-        read: false
-      };
-    }
+    this.state = {
+      camera: {
+        type: RNCamera.Constants.Type.back,
+        flashMode: RNCamera.Constants.FlashMode.auto,
+      },
+      read: false
+    };
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const { read } = this.state;
+    const { read, loading, scanResult } = this.state;
+    const { location, qrDocID, counter } = this.props;
+
     if (prevState.read !== read) {
       switch (read) {
         case true:
-          this.redeem();
+          this.props.onQRScan();
           break;
         case -1:
           Alert.alert(
-            'Wrong Reward',
-            'Are you at the right store?',
+            'Wrong QR Code',
+            'Are you at the right place?',
             [
-              { text: 'OK', onPress: () => this.setState({ read: false }) }
+              { text: 'Cancel', onPress: () => this.setState({ read: false, loading: false }) }
             ],
           );
           break;
         default:
       }
     }
+    if (loading && prevState.loading !== loading) {
+      this.onLoading();
+    }
   }
 
   onBarCodeRead(scanResult) {
-    const { userID, read } = this.state;
-    const { rewardID, redeemed } = this.props;
+    this.setState({ scanResult: scanResult, loading: true });
+  }
+
+  onLoading() {
+    const { read, scanResult } = this.state;
+    const { docID, redeemed, docType, qrDocID } = this.props;
 
     if (redeemed) { // failsafe
       Alert.alert(
         'Already Redeemed!',
-        'You have already redeemed this reward',
+        'You have already redeemed this',
       );
       Actions.pop();
     } else {
       console.log('read');
       if (scanResult.data && !read) {
-        if (scanResult.data.indexOf('https://outsideapp.co/Rewards/') !== -1) {
-          const qrID = scanResult.data.slice(30);
-          if (qrID === rewardID) {
+        let qrLink = 'https://outsideapp.co/';
+        qrLink = qrLink.concat(docType, '/');
+        if (scanResult.data.indexOf(qrLink) !== -1) {
+          const qrID = scanResult.data.slice(23 + docType.length, -1);
+          const multiDocID = qrDocID.slice(0, -1);
+          console.warn(qrID);
+          console.warn(multiDocID);
+          if (qrID === multiDocID) {
             this.setState({ read: true });
           } else {
             this.setState({ read: -1 });
           }
         } else {
-          console.log(scanResult.type);
-          console.log(scanResult.data);
+          console.log(`${scanResult.type} ${scanResult.data}`);
           this.setState({ read: -1 });
         }
       }
@@ -90,60 +100,15 @@ class QRScanner extends Component {
     return null;
   }
 
-  redeem() {
-    const { userID, read } = this.state;
-    const { location, rewardID, dateClaimedArr, locationArr } = this.props;
+  renderSpinner() {
+    const { loading } = this.state;
 
-    if (read) {
-      const redemptionsDB = rewardsDB.doc(rewardID).collection('redemptions');
-      if (!dateClaimedArr) {
-        const info = {
-          dateClaimed: [new Date()],
-          location: [location]
-        };
-        redemptionsDB.doc(userID).set(info).then(() => {
-          redemptionsDB.get().then((query) => {
-            let redemptionCount = 0;
-
-            query.forEach((doc) => {
-              redemptionCount += doc.data().dateClaimed.length;
-            });
-
-            rewardsDB.doc(rewardID).update({ redemptionCount: redemptionCount }).then(() => {
-              Alert.alert(
-                'Claim Successful!',
-                'Please show this to your cashier.',
-              );
-              Actions.pop();
-            });
-          });
-        });
-      } else {
-        // Add a new date to the "dateClaimed" array.
-        dateClaimedArr.push(new Date());
-        locationArr.push(location);
-
-        redemptionsDB.doc(userID).update({
-          dateClaimed: dateClaimedArr,
-          location: locationArr
-        }).then(() => {
-          redemptionsDB.get().then((query) => {
-            let redemptionCount = 0;
-
-            query.forEach((doc) => {
-              redemptionCount += doc.data().dateClaimed.length;
-            });
-
-            rewardsDB.doc(rewardID).update({ redemptionCount: redemptionCount }).then(() => {
-              Alert.alert(
-                'Claim Successful!',
-                'Please show this to your cashier.',
-              );
-              Actions.pop();
-            });
-          });
-        });
-      }
+    if (loading) {
+      return (
+        <View style={[Absolute.CenteredContent, { backgroundColor: 'rgba(1,1,1,0.6)' }]}>
+          <Spinner fontSize="large" />
+        </View>
+      );
     }
   }
 
@@ -174,6 +139,7 @@ class QRScanner extends Component {
             return (
               <View style={styles.overlay}>
                 {this.props.children}
+                {this.renderSpinner()}
               </View>
             );
           }}
@@ -196,7 +162,7 @@ const styles = StyleSheet.create({
   },
   capture: {
     flex: 0,
-    backgroundColor: '#fff',
+    backgroundColor: mainBaseColor,
     borderRadius: 5,
     padding: 15,
     paddingHorizontal: 20,
