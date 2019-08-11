@@ -10,6 +10,8 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import { mainColor, grey, fontSize, padding, mainBaseColor, lightGrey, black } from './src/Constants';
+import { Actions } from 'react-native-router-flux';
+import { FilledButton } from './buttons/Button';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -21,6 +23,14 @@ export default class App extends Component<Props> {
     );
   }
 
+  renderRewards() {
+    return (
+      <View style={{ paddingBottom: 20, paddingHorizontal: 20 }}>
+        <FilledButton color={mainColor} text="My Rewards" onPress={() => Actions.RewardsManager()} />
+      </View>
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -28,6 +38,7 @@ export default class App extends Component<Props> {
         <Text style={styles.instructions}>Made by Kingston Kuan</Text>
         <Text style={styles.instructions}>Click the button below to begin.</Text>
         {this.renderClaim()}
+        {this.renderRewards()}
       </View>
     );
   }

@@ -37,18 +37,18 @@ class QRScanner extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const { read, loading, scanResult } = this.state;
+    const { read, loading, scannnedCode } = this.state;
     const { location, qrDocID, counter } = this.props;
 
     if (prevState.read !== read) {
       switch (read) {
         case true:
-          this.props.onQRScan();
+          this.props.onQRScan(scannnedCode);
           break;
         case -1:
           Alert.alert(
             'Wrong QR Code',
-            'Are you at the right place?',
+            'Too bad, try again somewhere else!',
             [
               { text: 'Cancel', onPress: () => this.setState({ read: false, loading: false }) }
             ],
@@ -62,13 +62,17 @@ class QRScanner extends Component {
     }
   }
 
+  getRewardData() {
+    //get all rewards from database
+  }
+
   onBarCodeRead(scanResult) {
     this.setState({ scanResult: scanResult, loading: true });
   }
 
   onLoading() {
     const { read, scanResult } = this.state;
-    const { docID, redeemed, docType, qrDocID } = this.props;
+    const { redeemed } = this.props;
 
     if (redeemed) { // failsafe
       Alert.alert(
@@ -79,25 +83,19 @@ class QRScanner extends Component {
     } else {
       console.log('read');
       if (scanResult.data && !read) {
-        let qrLink = 'https://outsideapp.co/';
-        qrLink = qrLink.concat(docType, '/');
-        if (scanResult.data.indexOf(qrLink) !== -1) {
-          const qrID = scanResult.data.slice(23 + docType.length, -1);
-          const multiDocID = qrDocID.slice(0, -1);
-          console.warn(qrID);
-          console.warn(multiDocID);
-          if (qrID === multiDocID) {
-            this.setState({ read: true });
-          } else {
-            this.setState({ read: -1 });
-          }
+        //check scannedCode against all the codes in the database to see if the QR is accepted
+        const scannedCode = scanResult.data;
+        const databaseCode = 'sia-thunqrclouds';
+        console.warn(databaseCode);
+        console.warn(scannedCode);
+        if (databaseCode === scannedCode) {
+          this.setState({ read: true, scannedCode: scannedCode });
         } else {
           console.log(`${scanResult.type} ${scanResult.data}`);
           this.setState({ read: -1 });
         }
       }
     }
-    return null;
   }
 
   renderSpinner() {
