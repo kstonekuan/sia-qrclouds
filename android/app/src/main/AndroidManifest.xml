@@ -2,6 +2,16 @@
   package="com.thunqerclouds">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
 
     <application
       android:name=".MainApplication"
@@ -21,6 +31,22 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+      <receiver android:name="com.transistorsoft.rnbackgroundgeolocation.RNBackgroundGeolocationEventReceiver">
+            <intent-filter>
+                <!-- You may choose to listen to any, all or none of the following events.  If you don't wish to listen to a particular event, remove it from your AndroidManifest -->
+                <action android:name="com.transistorsoft.locationmanager.event.BOOT" />
+                <action android:name="com.transistorsoft.locationmanager.event.TERMINATE" />
+                <action android:name="com.transistorsoft.locationmanager.event.HEARTBEAT" />
+                <action android:name="com.transistorsoft.locationmanager.event.MOTIONCHANGE" />
+                <action android:name="com.transistorsoft.locationmanager.event.LOCATION" />
+                <action android:name="com.transistorsoft.locationmanager.event.GEOFENCE" />
+                <action android:name="com.transistorsoft.locationmanager.event.HTTP" />
+                <action android:name="com.transistorsoft.locationmanager.event.SCHEDULE" />
+                <action android:name="com.transistorsoft.locationmanager.event.ACTIVITYCHANGE" />
+                <action android:name="com.transistorsoft.locationmanager.event.PROVIDERCHANGE" />
+                <action android:name="com.transistorsoft.locationmanager.event.GEOFENCESCHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
