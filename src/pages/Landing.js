@@ -33,7 +33,7 @@ export default class Landing extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to KrisFlyer QR Surprise!</Text>
+        <Text style={styles.welcome}>Welcome to KrisShop QR Clouds!</Text>
         <Text style={styles.instructions}>Made by Kingston Kuan</Text>
         <Text style={styles.instructions}>Click the button below to begin.</Text>
         {this.renderClaim()}
