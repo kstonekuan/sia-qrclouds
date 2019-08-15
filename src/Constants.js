@@ -41,5 +41,5 @@ export const white = '#ffffff';
 
 export const mainColor = grey;
 export const mainColorLight = lightGrey;
-export const mainBaseColor = white;
-export const subBaseColor = fairyGrey;
+export const mainBaseColor = fairyGrey;
+export const subBaseColor = midGrey;

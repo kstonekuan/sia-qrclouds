@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, FlatList, View, Text, StyleSheet, Platform, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { Alert, Picker, Animated, FlatList, View, Text, StyleSheet, Platform, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import firebase from 'react-native-firebase';
 
 // Local Imports
@@ -23,11 +23,12 @@ class LocationSurvey extends Component {
   }
 
   renderLocationSelector() {
+    return (
     <View style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
       <Text style={[TextStyle.Regular, { fontSize: fontSize.ML }]}>Where were you visiting when you saw this QR code?</Text>
       <Picker
         selectedValue={this.state.location}
-        style={{ height: 50, width: 100 }}
+        style={{ height: 50, width: 200 }}
         onValueChange={(itemValue, itemIndex) =>
           this.setState({ location: itemValue })
         }>
@@ -37,14 +38,16 @@ class LocationSurvey extends Component {
         <Picker.Item label="Others" value="others" />
       </Picker>
     </View>
+    );
   }
 
   renderPurposeSelector(){
+    return (
     <View style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
       <Text style={[TextStyle.Regular, { fontSize: fontSize.ML }]}>What as your purpose of visit?</Text>
       <Picker
         selectedValue={this.state.purpose}
-        style={{ height: 50, width: 100 }}
+        style={{ height: 50, width: 200 }}
         onValueChange={(itemValue, itemIndex) =>
           this.setState({ purpose: itemValue })
         }>
@@ -53,8 +56,8 @@ class LocationSurvey extends Component {
         <Picker.Item label="Browsing" value="browsing" />
         <Picker.Item label="Others" value="others" />
       </Picker>
-
     </View>
+    );
   }
 
   onSubmit = () => {
@@ -78,11 +81,13 @@ class LocationSurvey extends Component {
   render() {
     return (
       <PageFrame style={{ backgroundColor: mainBaseColor }}>
-        <NavTitle title="Survey" onPress={() => Actions.pop()} />
-        <Text>Please answer a few questions so we may serve you better</Text>
+        <NavTitle title="Survey" hideBackArrow onPress={() => Actions.pop()} />
+        <View style={{ flex: 1 }}>
+        <Text style={[TextStyle.Regular, { fontSize: fontSize.ML, padding: padding.L }]}>Please answer a few questions so we may serve you better</Text>
         {this.renderLocationSelector()}
         {this.renderPurposeSelector()}
-        <FilledButton color={mainColor} text="Submit" onPress={() => this.onSubmit()} />
+        </View>
+        <FilledButton style={{ margin: padding.L }} color={mainColor} text="Submit" onPress={() => this.onSubmit()} />
       </PageFrame>
     );
   }
@@ -102,7 +107,7 @@ const styles = StyleSheet.create({
     paddingBottom: padding.M,
   },
   categoryItem: {
-    flexDirection: 'row',
+    //flexDirection: 'row',
     marginBottom: 10,
     alignItems: 'baseline',
     backgroundColor: mainBaseColor,

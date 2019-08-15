@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, FlatList, View, Text, StyleSheet, Platform, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { Alert, Animated, FlatList, View, Text, StyleSheet, Platform, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import firebase from 'react-native-firebase';
 
 // Local Imports
@@ -34,31 +34,35 @@ class SelectReward extends Component {
           text: 'Done',
           onPress: () => {
             Actions.LocationSurvey();
+            Actions.pop();
           }
         },
       ],
     );
-    Actions.pop();
   }
 
   render() {
     return (
       <PageFrame style={{ backgroundColor: mainBaseColor }}>
-        <NavTitle title="Manage Prompts" onPress={() => Actions.pop()} />
-        <ScrollView horizontal={true}>
-          <ModalCard>
-            <Text>Choice 1</Text>
-            <FilledButton color={mainColor} text="Select" onPress={() => this.onSelect()} />
-          </ModalCard>
-          <ModalCard>
-            <Text>Choice 2</Text>
-            <FilledButton color={mainColor} text="Select" onPress={() => this.onSelect()} />
-          </ModalCard>
-          <ModalCard>
-            <Text>Choice 3</Text>
-            <FilledButton color={mainColor} text="Select" onPress={() => this.onSelect()} />
-          </ModalCard>
-        </ScrollView>
+        <NavTitle title="Select Reward" onPress={() => Actions.pop()} />
+        <View style={{ flexDirection: 'row', paddingTop: 3*padding.L }}>
+          <View style={{ padding: padding.M }} />
+          <ScrollView horizontal style={{ flex: 1 }}>
+            <ModalCard style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
+              <Text style={[TextStyle.Regular, { fontSize: fontSize.ML, padding: padding.L }]}>Choice 1</Text>
+              <FilledButton style={{ margin: padding.L }} color={mainColor} text="Select" onPress={() => this.onSelect()} />
+            </ModalCard>
+            <ModalCard style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
+              <Text style={[TextStyle.Regular, { fontSize: fontSize.ML, padding: padding.L }]}>Choice 2</Text>
+              <FilledButton style={{ margin: padding.L }} color={mainColor} text="Select" onPress={() => this.onSelect()} />
+            </ModalCard>
+            <ModalCard style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
+              <Text style={[TextStyle.Regular, { fontSize: fontSize.ML, padding: padding.L }]}>Choice 3</Text>
+              <FilledButton style={{ margin: padding.L }} color={mainColor} text="Select" onPress={() => this.onSelect()} />
+            </ModalCard>
+          </ScrollView>
+          <View style={{ padding: padding.M }} />
+        </View>
       </PageFrame>
     );
   }

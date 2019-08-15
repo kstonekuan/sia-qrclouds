@@ -17,8 +17,7 @@ class RewardsManager extends Component {
     super(props);
 
     this.state = {
-      noShareRewardPrompt: this.props.noShareRewardPrompt,
-      noShareTaskPrompt: this.props.noShareTaskPrompt,
+
     };
   }
 
@@ -35,8 +34,8 @@ class RewardsManager extends Component {
       <PageFrame style={{ backgroundColor: mainBaseColor }}>
         <NavTitle title="My Rewards" onPress={() => Actions.pop()} />
         <ScrollView>
-          <ModalCard>
-            <Text>Choice 1</Text>
+          <ModalCard style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
+            <Text style={[TextStyle.Regular, { fontSize: fontSize.ML }]}>Choice 1</Text>
           </ModalCard>
         </ScrollView>
       </PageFrame>

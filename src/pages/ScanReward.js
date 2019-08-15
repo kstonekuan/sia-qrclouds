@@ -5,7 +5,7 @@ import firebase from 'react-native-firebase';
 import QRScanner from '../components/QRScanner';
 import CameraOverlay from '../components/CameraOverlay';
 import NavTitle from '../components/NavTitle';
-import { usersDB, rewardsDB, mainBaseColor } from '../Constants';
+import { usersDB, rewardsDB, mainBaseColor, white } from '../Constants';
 
 class ScanReward extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class ScanReward extends Component {
       'Please select your reward!',
     );
     Actions.pop();
-    Actions.Select();
+    Actions.SelectReward();
   }
 
   onQRScan = (scannedCode) => {
@@ -60,7 +60,7 @@ class ScanReward extends Component {
 
     return (
       <QRScanner onQRScan={this.onQRScan} redeemed={false}>
-        <NavTitle title="Scan to Claim Reward" onPress={() => Actions.pop()} style={{ top: 0, left: 0, right: 0, position: 'absolute', zIndex: 5 }} titleStyles={{ color: mainBaseColor }} backArrowColor={{ color: mainBaseColor }} />
+        <NavTitle title="Scan to Claim Reward" onPress={() => Actions.pop()} style={{ top: 0, left: 0, right: 0, position: 'absolute', zIndex: 5 }} titleStyles={{ color: white }} backArrowColor={{ color: white }} />
         <CameraOverlay />
       </QRScanner>
     );
