@@ -30,3 +30,4 @@ This prototype is developed with *React Native* for both iOS and Android but is 
 - [ ] Geofencing
 - [ ] Collecting of codes from Changi Airport
 - [ ] Collecting available promotions for KrisShop
+- [ ] Recommendation system
