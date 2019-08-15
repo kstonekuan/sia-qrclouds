@@ -1,19 +1,32 @@
-# sia-thunqrclouds
+# QR Clouds
 
-SIA App Challenge 2019 -**Due 23 Aug**
+Made for SIA App Challenge 2019
 
 https://appchallenge.singaporeair.com/en/challenges/appchallenge-2019?lang=en
 
 ## Challenge Statement KrisShop
 
-The idea is to transform the QR codes around Changi Airport into hidden claimable rewards for the KrisShop. The main starting point for this would be in the check-in counter queue (public spaces) where any ticket you have you can scan to get a discount. 
+How might we bridge the physical and digital elements at various customer touchpoints so as to increase our presence in the O2O (online to offline/offline to online) space?
 
-### Value proposition
+https://cdn.fs.agorize.com/rCHU6AwQWOUqZsUqghUD
 
-This will increase the number of users for the app itself and encourage people to buy things through "exclusive" discounts. The gamification of the rewards in a simple matter also improves the chance of users using the app more often and stumbling upon something they want. By using existing QR codes around Changi Airport, we also would not need to put up our own. Each QR just represents a link which we can use to determine different rewards/points.
+### Summary of Solution
 
-### Problems:
+By onboarding QR codes around Changi Airport onto the QR Clouds app, consumers may scan any QR code they see for a chance to select a reward in the form of KrisShop promotions.
 
-1. People may be able to take pictures of the QRs and send them around. Location based? Randomise with penalty (scan wrong one have to wait a few minutes to scan again)?
-2. How to make people aware of the app. Poster at the check-in counter? (Encourage use of changi wifi)
-3. Need permission to use other people's QR?
+## Development
+
+This prototype is developed with *React Native* for both iOS and Android but is only fully tested on Android. Scanning capability (Test QR Code can be found under **./resources** folder) and basic product flow is fully tested. 
+
+### To-do List
+
+- [x] Product flow
+- [x] QR code scanning
+- [x] Rewards selection
+- [x] Geolocation survey
+- [x] Rewards management
+- [ ] Database integration
+- [ ] User authentication
+- [ ] Geofencing
+- [ ] Collecting of codes from Changi Airport
+- [ ] Collecting available promotions for KrisShop
