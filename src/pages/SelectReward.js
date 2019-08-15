@@ -33,8 +33,8 @@ class SelectReward extends Component {
         {
           text: 'Done',
           onPress: () => {
-            Actions.LocationSurvey();
             Actions.pop();
+            Actions.LocationSurvey();
           }
         },
       ],
@@ -50,14 +50,17 @@ class SelectReward extends Component {
           <ScrollView horizontal style={{ flex: 1 }}>
             <ModalCard style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
               <Text style={[TextStyle.Regular, { fontSize: fontSize.ML, padding: padding.L }]}>Choice 1</Text>
+              <Text style={[TextStyle.Regular, { fontSize: fontSize.M, padding: padding.L }]}>50% off T-shirt and shorts</Text>
               <FilledButton style={{ margin: padding.L }} color={mainColor} text="Select" onPress={() => this.onSelect()} />
             </ModalCard>
             <ModalCard style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
               <Text style={[TextStyle.Regular, { fontSize: fontSize.ML, padding: padding.L }]}>Choice 2</Text>
+              <Text style={[TextStyle.Regular, { fontSize: fontSize.M, padding: padding.L }]}>Free lotion with purchase of bag</Text>
               <FilledButton style={{ margin: padding.L }} color={mainColor} text="Select" onPress={() => this.onSelect()} />
             </ModalCard>
             <ModalCard style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
               <Text style={[TextStyle.Regular, { fontSize: fontSize.ML, padding: padding.L }]}>Choice 3</Text>
+              <Text style={[TextStyle.Regular, { fontSize: fontSize.M, padding: padding.L }]}>Buy 2 socks get one free</Text>
               <FilledButton style={{ margin: padding.L }} color={mainColor} text="Select" onPress={() => this.onSelect()} />
             </ModalCard>
           </ScrollView>
