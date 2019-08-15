@@ -11,35 +11,15 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import { mainColor, grey, fontSize, padding, mainBaseColor, lightGrey, black } from './src/Constants';
 import { Actions } from 'react-native-router-flux';
-import { FilledButton } from './buttons/Button';
+import { FilledButton } from './src/components/buttons/Button';
+import Router from './src/Router';
 
 type Props = {};
 export default class App extends Component<Props> {
-  renderClaim() {
-    return (
-      <View style={{ paddingBottom: 20, paddingHorizontal: 20 }}>
-        <FilledButton color={mainColor} text="Scan QR" onPress={() => Actions.ScanReward()} />
-      </View>
-    );
-  }
-
-  renderRewards() {
-    return (
-      <View style={{ paddingBottom: 20, paddingHorizontal: 20 }}>
-        <FilledButton color={mainColor} text="My Rewards" onPress={() => Actions.RewardsManager()} />
-      </View>
-    );
-  }
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to KrisFlyer QR Surprise!</Text>
-        <Text style={styles.instructions}>Made by Kingston Kuan</Text>
-        <Text style={styles.instructions}>Click the button below to begin.</Text>
-        {this.renderClaim()}
-        {this.renderRewards()}
-      </View>
+      <Router/>
     );
   }
 }
@@ -48,7 +28,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    //alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   welcome: {

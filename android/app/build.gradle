@@ -73,10 +73,12 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js"
+    entryFile: "index.js",
+    enableHermes: false // clean and rebuild if changing
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -138,29 +140,24 @@ android {
     }
 }
 
+def jscFlavor = 'org.webkit:android-jsc:+'
+
+def enableHermes = project.ext.react.get("enableHermes", false);
+
 dependencies {
+    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-camera')
+    implementation project(':react-native-firebase')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation(project(':react-native-camera')){
-        exclude group: "com.google.android.gms"
-        exclude group: "com.android.support"
-    }
-    implementation (project(':react-native-firebase')){
 
-        exclude group: 'com.google.android.gms', module: 'play-services-base'
-        exclude group: 'com.google.firebase', module: 'firebase-ads'
-        exclude group: 'com.google.firebase', module: 'firebase-auth'
-        exclude group: 'com.google.firebase', module: 'firebase-config'
-        exclude group: 'com.google.firebase', module: 'firebase-core'
-        exclude group: 'com.google.firebase', module: 'firebase-crash'
-        exclude group: 'com.google.firebase', module: 'firebase-database'
-        exclude group: 'com.google.firebase', module: 'firebase-firestore'
-        exclude group: 'com.google.firebase', module: 'firebase-functions'
-        exclude group: 'com.google.firebase', module: 'firebase-invites'
-        exclude group: 'com.google.firebase', module: 'firebase-storage'
-        exclude group: 'com.google.firebase', module: 'firebase-messaging'
-        exclude group: 'com.google.firebase', module: 'firebase-perf'
+    if (enableHermes) {
+      def hermesPath = "../../node_modules/hermesvm/android/";
+      debugImplementation files(hermesPath + "hermes-debug.aar")
+      releaseImplementation files(hermesPath + "hermes-release.aar")
+    } else {
+      implementation jscFlavor
     }
 
     implementation ("com.google.firebase:firebase-core:16.0.8") {

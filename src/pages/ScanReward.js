@@ -6,7 +6,6 @@ import QRScanner from '../components/QRScanner';
 import CameraOverlay from '../components/CameraOverlay';
 import NavTitle from '../components/NavTitle';
 import { usersDB, rewardsDB, mainBaseColor } from '../Constants';
-import linkSharing from '../components/functions/linkSharing';
 
 class ScanReward extends Component {
   constructor(props) {

@@ -7,13 +7,18 @@
     "test": "jest"
   },
   "dependencies": {
+    "acorn": "^7.0.0",
     "braces": "^3.0.2",
     "core-js": "^3.1.4",
-    "react": "16.8.3",
+    "lodash": "^4.17.15",
+    "native-base": "^2.13.4",
+    "react": "^16.8.3",
     "react-native": "^0.60.4",
     "react-native-camera": "^2.11.0",
     "react-native-firebase": "^5.5.6",
-    "react-native-router-flux": "^4.0.6"
+    "react-native-iphone-x-helper": "^1.2.1",
+    "react-native-router-flux": "^4.0.6",
+    "react-native-vector-icons": "^6.6.0"
   },
   "devDependencies": {
     "@babel/core": "7.4.5",

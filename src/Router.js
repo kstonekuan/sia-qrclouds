@@ -7,23 +7,20 @@ import ScanReward from './pages/ScanReward';
 import SelectReward from './pages/SelectReward';
 import RewardsManager from './pages/RewardsManager';
 import LocationSurvey from './pages/LocationSurvey';
-import App from '../App'
+import Landing from './pages/Landing'
 
-class RouterComponent extends Component {
-
-  render() {
-    return (
-      <Router gesturesEnabled={false}>
-        <Stack key="root" hideNavBar>
-          <Scene key="Home" component={App} hideNavBar />
-          <Scene key="SelectReward" component={SelectReward} hideNavBar />
-          <Scene key="ScanReward" component={ScanReward} hideNavBar />
-          <Scene key="RewardsManager" component={RewardsManager} hideNavBar />
-          <Scene key="LocationSurvey" component={LocationSurvey} hideNavBar />
-        </Stack>
-      </Router>
-    );
-  }
+const RouterComponent = () => {
+  return (
+    <Router gesturesEnabled={false}>
+      <Scene key="root" hideNavBar>
+        <Scene key="Home" component={Landing} initial hideNavBar />
+        <Scene key="SelectReward" component={SelectReward} hideNavBar />
+        <Scene key="ScanReward" component={ScanReward} hideNavBar />
+        <Scene key="RewardsManager" component={RewardsManager} hideNavBar />
+        <Scene key="LocationSurvey" component={LocationSurvey} hideNavBar />
+      </Scene>
+    </Router>
+  );
 }
 
 export default RouterComponent;

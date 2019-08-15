@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, FlatList, View, Text, StyleSheet, Platform, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import firebase from 'react-native-firebase';
-import Switch from 'react-native-switch-pro';
 
 // Local Imports
 import { Actions } from 'react-native-router-flux';
@@ -10,7 +9,7 @@ import { TextStyle } from '../StyleSheet';
 import PageFrame from '../components/PageFrame';
 import NavTitle from '../components/NavTitle';
 import ModalCard from '../components/common/ModalCard';
-import { FilledButton } from './buttons/Button';
+import { FilledButton } from '../components/buttons/Button';
 
 const { height, width } = Dimensions.get('window');
 class LocationSurvey extends Component {
