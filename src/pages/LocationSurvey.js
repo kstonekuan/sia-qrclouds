@@ -24,39 +24,39 @@ class LocationSurvey extends Component {
 
   renderLocationSelector() {
     return (
-    <View style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
-      <Text style={[TextStyle.Regular, { fontSize: fontSize.ML }]}>Where were you visiting when you saw this QR code?</Text>
-      <Picker
-        selectedValue={this.state.location}
-        style={{ height: 50, width: 200 }}
-        onValueChange={(itemValue, itemIndex) =>
-          this.setState({ location: itemValue })
-        }>
-        <Picker.Item label="Chanel" value="chanel" />
-        <Picker.Item label="Burger King" value="bk" />
-        <Picker.Item label="Camera Shop" value="camera" />
-        <Picker.Item label="Others" value="others" />
-      </Picker>
-    </View>
+      <View style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
+        <Text style={[TextStyle.Regular, { fontSize: fontSize.ML }]}>Where were you visiting when you saw this QR code?</Text>
+        <Picker
+          selectedValue={this.state.location}
+          style={{ height: 50, width: 200 }}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({ location: itemValue })
+          }>
+          <Picker.Item label="Chanel" value="chanel" />
+          <Picker.Item label="Burger King" value="bk" />
+          <Picker.Item label="Camera Shop" value="camera" />
+          <Picker.Item label="Others" value="others" />
+        </Picker>
+      </View>
     );
   }
 
-  renderPurposeSelector(){
+  renderPurposeSelector() {
     return (
-    <View style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
-      <Text style={[TextStyle.Regular, { fontSize: fontSize.ML }]}>What as your purpose of visit?</Text>
-      <Picker
-        selectedValue={this.state.purpose}
-        style={{ height: 50, width: 200 }}
-        onValueChange={(itemValue, itemIndex) =>
-          this.setState({ purpose: itemValue })
-        }>
-        <Picker.Item label="Shopping" value="shopping" />
-        <Picker.Item label="Eating" value="eating" />
-        <Picker.Item label="Browsing" value="browsing" />
-        <Picker.Item label="Others" value="others" />
-      </Picker>
-    </View>
+      <View style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
+        <Text style={[TextStyle.Regular, { fontSize: fontSize.ML }]}>What as your purpose of visit?</Text>
+        <Picker
+          selectedValue={this.state.purpose}
+          style={{ height: 50, width: 200 }}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({ purpose: itemValue })
+          }>
+          <Picker.Item label="Shopping" value="shopping" />
+          <Picker.Item label="Eating" value="eating" />
+          <Picker.Item label="Browsing" value="browsing" />
+          <Picker.Item label="Others" value="others" />
+        </Picker>
+      </View>
     );
   }
 
@@ -70,22 +70,21 @@ class LocationSurvey extends Component {
         {
           text: 'Done',
           onPress: () => {
-            Actions.Home();
+            Actions.pop();
           }
         },
       ],
     );
-    Actions.pop();
   }
 
   render() {
     return (
       <PageFrame style={{ backgroundColor: mainBaseColor }}>
         <NavTitle title="Survey" hideBackArrow onPress={() => Actions.pop()} />
-        <View style={{ flex: 1 }}>
-        <Text style={[TextStyle.Regular, { fontSize: fontSize.ML, padding: padding.L }]}>Please answer a few questions so we may serve you better</Text>
-        {this.renderLocationSelector()}
-        {this.renderPurposeSelector()}
+        <View style={{ flex: 1, padding: padding.M }}>
+          <Text style={[TextStyle.Regular, { fontSize: fontSize.ML, padding: padding.L }]}>Please answer a few questions so we may serve you better!</Text>
+          {this.renderLocationSelector()}
+          {this.renderPurposeSelector()}
         </View>
         <FilledButton style={{ margin: padding.L }} color={mainColor} text="Submit" onPress={() => this.onSubmit()} />
       </PageFrame>
