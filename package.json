@@ -6,6 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
+  "entryPoint": "./index.js",
   "dependencies": {
     "acorn": "^7.0.0",
     "braces": "^3.0.2",

@@ -35,7 +35,8 @@ class RewardsManager extends Component {
         <NavTitle title="My Rewards" onPress={() => Actions.pop()} />
         <ScrollView>
           <ModalCard style={[styles.categoryItem, containerPadding, { marginBottom: padding.L }]}>
-            <Text style={[TextStyle.Regular, { fontSize: fontSize.ML }]}>Choice 1</Text>
+            <Text style={[TextStyle.Regular, { fontSize: fontSize.ML, paddingLeft: padding.L, paddingTop:padding.M }]}>Choice 1</Text>
+            <Text style={[TextStyle.Regular, { fontSize: fontSize.M, padding: padding.L }]}>50% off T-shirt and shorts</Text>
           </ModalCard>
         </ScrollView>
       </PageFrame>

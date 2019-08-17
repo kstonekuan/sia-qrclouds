@@ -18,6 +18,8 @@ By onboarding QR codes around Changi Airport onto the QR Clouds app, consumers m
 
 This prototype is developed with *React Native* for both iOS and Android but is only fully tested on Android. Scanning capability (Test QR Code can be found under **./resources** folder) and basic product flow is fully tested. 
 
+Release mode APK can be found in **./android/app/build/outputs/apk/release** folder.
+
 ### To-do List
 
 - [x] Product flow

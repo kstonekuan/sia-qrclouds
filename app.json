@@ -1,4 +1,5 @@
 {
   "name": "thunqerclouds",
-  "displayName": "thunqerclouds"
+  "displayName": "thunqerclouds",
+  "entryPoint": "./index.js"
 }
