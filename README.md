@@ -14,7 +14,9 @@ https://cdn.fs.agorize.com/rCHU6AwQWOUqZsUqghUD
 
 By onboarding QR codes around Changi Airport onto the QR Clouds app, consumers may scan any QR code they see for a chance to select a reward in the form of KrisShop promotions.
 
-## Development
+Demo video can be found at https://youtu.be/QWhfvpsHUxk or in **./resources** folder.
+
+## Technical Development
 
 This prototype is developed with *React Native* for both iOS and Android but is only fully tested on Android. Scanning capability (Test QR Code can be found under **./resources** folder) and basic product flow is fully tested. 
 
